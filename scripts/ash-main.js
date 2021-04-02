@@ -6,12 +6,11 @@ module.exports = class extends Bot {
 		// Load token from Environment Variables, to prevent it from being displayed publicly on GitHub
 		// Replace this with your own token if you want to host a copy of the bot yourself
 		let token = process.env[`ASHTOKEN`]
-		super("ash", token, "!", true)
-		this.initialDataStructure = {
+		super("ash", token, "!", true, {
 			characters: {},
 			guilds: {},
 			wars: []
-		}
+		})
 
 		// Channel id for potential cheaters logging
 		this.logChannelID = "826889360254304326"
