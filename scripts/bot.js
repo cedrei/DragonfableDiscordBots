@@ -99,7 +99,7 @@ class Bot {
 				// Throw rather than log because this will break the entire bot if we cannot load the data initially
 				throw err
 			}
-			this.data = JSON.parse(res)
+			this.data = JSON.parse(res.rows[0].json)
 			pgClient.end()
 		})
 	}
