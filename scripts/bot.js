@@ -2,11 +2,12 @@ const Discord = require("discord.js")
 const fs = require("fs")
 
 class Bot {
-	constructor(name, token, prefix, needsAuth) {
+	constructor(name, token, prefix, needsAuth, initialDataStructure) {
 		this.client = new Discord.Client()
 		this.name = name
 		this.prefix = prefix
 		this.needsAuth = needsAuth
+		this.initialDataStructure = initialDataStructure
 
 		this.loadEvents()
 		this.setupCommandParsing()
@@ -106,6 +107,7 @@ class Bot {
 			} else {
 				this.data = JSON.parse(data)
 			}
+			console.log(this.data)
 		})
 	}
 
