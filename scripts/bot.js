@@ -1,13 +1,13 @@
 const Discord = require("discord.js")
 const fs = require("fs")
+const pg = require("pg")
 
 class Bot {
-	constructor(name, token, prefix, needsAuth, initialDataStructure) {
+	constructor(name, token, prefix, needsAuth) {
 		this.client = new Discord.Client()
 		this.name = name
 		this.prefix = prefix
 		this.needsAuth = needsAuth
-		this.initialDataStructure = initialDataStructure
 
 		this.loadEvents()
 		this.setupCommandParsing()
@@ -84,39 +84,39 @@ class Bot {
 	}
 
 	readDataFile() {
-		// The files in /data is like a makeshift database of sorts
-		// Here we load the file into the bots memory at instanciation
-		fs.readFile(`./data/${this.name}.json`, "utf8", (err, data) => {
-			if (err) {
-				// File hasn't been created yet
-				this.data = this.initialDataStructure||{}
-				// Make sure the /data folder exists
-				fs.access("./data", (err) => {
-					if (err) {
-						fs.mkdir("./data", (err) => {
-							if (err) {
-								console.error(error)
-							} else {
-								this.saveData()
-							}
-						})
-					} else {
-						this.saveData()
-					}
-				})
-			} else {
-				this.data = JSON.parse(data)
+		// Originally this program was intended to save things in a .json file, but the host deleted that file
+		// every restart so that wasn't viable. Since all the code is still set up to use a json file,
+		// we will instead save and load the json from a database (also I'm lazy)
+		let pgClient = new pg.Client({
+			connectionString: process.env.DATABASE_URL,
+			ssl: {
+				rejectUnauthorized: false
 			}
-			console.log(this.data)
+		})
+		pgClient.connect()
+		pgClient.query(`SELECT JSON FROM BotData WHERE BotName='${this.name}';`, (err, res) => {
+			if (err) {
+				// Throw rather than log because this will break the entire bot if we cannot load the data initially
+				throw err
+			}
+			this.data = JSON.parse(res)
+			pgClient.end()
 		})
 	}
 
 	saveData() {
-		let json = JSON.stringify(this.data)
-		fs.writeFile(`./data/${this.name}.json`, json, (err) => {
+		let pgClient = new pg.Client({
+			connectionString: process.env.DATABASE_URL,
+			ssl: {
+				rejectUnauthorized: false
+			}
+		})
+		pgClient.connect()
+		pgClient.query(`UPDATE BotData SET JSON='${JSON.stringify(this.data)}' WHERE BotName='${this.name}';`, (err) => {
 			if (err) {
 				console.error(err)
 			}
+			pgClient.end()
 		})
 	}
 }
