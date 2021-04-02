@@ -23,5 +23,5 @@ http.createServer( function (request, response) {
 
 // Send get requests to keep the bot awake
 setInterval(function() {
-	http.get("http://" + appname + ".herokuapp.com");
+	http.get("http://dragonfablediscordbots.herokuapp.com/");
 }, 20 * 60 * 1000); // every 20 minutes (1 200 000 ms)
