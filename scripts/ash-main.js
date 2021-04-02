@@ -5,7 +5,7 @@ module.exports = class extends Bot {
 	constructor() {
 		// Load token from Environment Variables, to prevent it from being displayed publicly on GitHub
 		// Replace this with your own token if you want to host a copy of the bot yourself
-		let token = process.env[`${i.name.toUpperCase()}TOKEN`]
+		let token = process.env[`ASHTOKEN`]
 		super("ash", token, "!", true)
 		this.initialDataStructure = {
 			characters: {},
