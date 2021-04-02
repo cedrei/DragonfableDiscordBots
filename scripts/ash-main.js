@@ -73,7 +73,7 @@ module.exports = class extends Bot {
 			}
 			if (waves == 10001) {
 				// If the char page displays waves as 10001, add on the amount of dms gathered since last update to our wave count
-				waves = Math.min(10001,wavesLastUpdate+dmDifference)
+				waves = Math.max(10001,wavesLastUpdate+dmDifference)
 			}
 
 			this.data.characters[characterID].wars[war]=waves
