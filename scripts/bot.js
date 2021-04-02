@@ -89,10 +89,23 @@ class Bot {
 			if (err) {
 				// File hasn't been created yet
 				this.data = this.initialDataStructure||{}
-				this.saveData()
-				return
+				// Make sure the /data folder exists
+				fs.access("./data", (err) => {
+					if (err) {
+						fs.mkdir("./data", (err) => {
+							if (err) {
+								console.error(error)
+							} else {
+								this.saveData()
+							}
+						})
+					} else {
+						this.saveData()
+					}
+				})
+			} else {
+				this.data = JSON.parse(data)
 			}
-			this.data = JSON.parse(data)
 		})
 	}
 
