@@ -89,6 +89,7 @@ class Bot {
 			if (err) {
 				// File hasn't been created yet
 				this.data = this.initialDataStructure||{}
+				saveData()
 				return
 			}
 			this.data = JSON.parse(data)
