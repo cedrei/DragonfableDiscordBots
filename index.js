@@ -20,3 +20,8 @@ http.createServer( function (request, response) {
 
     response.end(); 
 }).listen(process.env.PORT || 5000);
+
+// Send get requests to keep the bot awake
+setInterval(function() {
+	http.get("http://" + appname + ".herokuapp.com");
+}, 20 * 60 * 1000); // every 20 minutes (1 200 000 ms)
