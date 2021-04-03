@@ -52,7 +52,7 @@ module.exports = class extends Bot {
 
 		for (let war of this.data.wars) {
 			// If the character hasn't participated in this war, set waves to 0
-			if (html.indexOf(`<span class="warlabel">${war}</span><br />`) == 0) {
+			if (html.indexOf(`<span class="warlabel">${war}</span><br />`) == -1) {
 				this.data.characters[characterID].wars[war]=0
 				continue
 			}
