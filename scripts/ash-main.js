@@ -171,27 +171,29 @@ module.exports = class extends Bot {
 						// This is mostly a safeguard to make sure a leaderboard isn't accidentally placed in an ordinary text channel
 						for (let i of oldMessages) {
 							if (i.author.id != this.client.user.id) {
-								channel.send("You need to clear this channel of posts by other users than this bot.")
+								channel.send("You need to clear this channel of posts by other users than this bot.").catch(console.error)
 								return
 							}
 						}
 
 						// If there are more messages than needed to display the leaderboard, delete the excess ones
 						for (let i = messages.length; i < oldMessages.length; i++) {
-							oldMessages[i].delete()
+							oldMessages[i].delete().catch(console.error)
 						}
 
 						for (let i = 0; i < messages.length; i++) {
 							if (i < oldMessages.length) {
 								// Edit the messages as far as those exist
-								oldMessages[i].edit(messages[i])
+								oldMessages[i].edit(messages[i]).catch(console.error)
 							} else {
 								// If we need new messages, instead post them
-								channel.post(messages[i])
+								channel.post(messages[i]).catch(console.error)
 							}
 						}
 					})
+					.catch(console.error)
 			})
+			.catch(console.error)
 	}
 
 	generateLeaderboard(channelID, users, guild, warName) {
@@ -255,6 +257,7 @@ module.exports = class extends Bot {
 							.catch(console.error)
 					}
 				})
+				.catch(console.error)
 		}
 	}
 }
