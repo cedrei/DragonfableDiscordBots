@@ -187,7 +187,7 @@ module.exports = class extends Bot {
 								oldMessages[i].edit(messages[i]).catch(console.error)
 							} else {
 								// If we need new messages, instead post them
-								channel.post(messages[i]).catch(console.error)
+								channel.send(messages[i]).catch(console.error)
 							}
 						}
 					})
