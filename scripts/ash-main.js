@@ -61,14 +61,14 @@ module.exports = class extends Bot {
 			let warEntry = html.split(`<span class="warlabel">${war}</span><br />`)[1].split("</span><br />")[0]
 			let waves = parseInt(warEntry.split('<span class="mx-2 d-inline-block">')[1].split(" ")[0])
 
-			if (waves == 10001) {
-				// If the char page displays waves as 10001, add on the amount of dms gathered since last update to our wave count
-				waves = Math.max(10001,wavesLastUpdate+dmDifference)
-			}
 			// If this is a new character that wasn't in last update cycle, this will be set to 0 to avoid it being undefined
 			// Note that this won't trigger any false positive cheater logs as the initial time stamp will be 0, aka in 1970
 			// Even doing 10001 waves in one cycle won't be suspicious if that cycle is over 50 years long, lol
 			let wavesLastUpdate = this.data.characters[characterID].wars[war]||0
+			if (waves == 10001) {
+				// If the char page displays waves as 10001, add on the amount of dms gathered since last update to our wave count
+				waves = Math.max(10001,wavesLastUpdate+dmDifference)
+			}
 			let wavesSinceLast = waves-wavesLastUpdate
 			let millisecondPerWave = timeSinceLast/wavesSinceLast
 			if (millisecondPerWave <= 5000) {
