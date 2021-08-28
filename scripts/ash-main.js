@@ -166,7 +166,7 @@ module.exports = class extends Bot {
 			.then(channel => {
 				channel.messages.fetch()
 					.then(oldMessages => {
-						oldMessages = Array.from(oldMessages.values())
+						oldMessages = Array.from(oldMessages.values()).reverse()
 
 						// This is mostly a safeguard to make sure a leaderboard isn't accidentally placed in an ordinary text channel
 						for (let i of oldMessages) {
