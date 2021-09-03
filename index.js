@@ -1,7 +1,7 @@
 const http = require("http")
 
 // List of all bot names, as they appear in /scripts
-let botNames = ["ash"]
+let botNames = ["ash", "hacke"]
 let botInstances = []
 
 const Bot = require("./scripts/bot.js")
