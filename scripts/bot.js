@@ -75,7 +75,7 @@ class Bot {
 			} catch(e) {
 				console.error(e)
 			}
-			
+
 		})
 	}
 
@@ -87,6 +87,13 @@ class Bot {
 		// Originally this program was intended to save things in a .json file, but the host deleted that file
 		// every restart so that wasn't viable. Since all the code is still set up to use a json file,
 		// we will instead save and load the json from a database (also I'm lazy)
+
+		// Loading the bot locally or something, idk. So that you can test without setting up a SQL database.
+		if (process.env.DATABASE_URL == undefined) {
+			console.log("WARNING: No Database url specified. No data loaded.")
+			this.data = {}
+			return
+		}
 		let pgClient = new pg.Client({
 			connectionString: process.env.DATABASE_URL,
 			ssl: {

@@ -9,5 +9,5 @@ module.exports = class extends Bot {
 		super("hacke", token, ";", false)
 	}
 
-	
+
 }
