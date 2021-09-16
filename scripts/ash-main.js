@@ -10,6 +10,7 @@ module.exports = class extends Bot {
 
 		// Channel id for potential cheaters logging
 		this.logChannelID = "826889360254304326"
+
 	}
 
 	logCheater(charID, oldTime, newTime, oldWaves, newWaves) {
@@ -201,8 +202,11 @@ module.exports = class extends Bot {
 		let data = []
 		for (let userID in users) {
 			let userObject = {
-				name: guild.members.cache.get(userID).user.tag,
+				name: guild.members.cache.get(userID)?.user?.tag,
 				waves: 0
+			}
+			if (userObject.name == undefined) {
+				continue
 			}
 			for (let characterID of users[userID]) {
 				userObject.waves += this.data.characters[characterID].wars[warName]
