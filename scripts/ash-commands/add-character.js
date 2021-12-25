@@ -57,8 +57,7 @@ function readCharacter(characterID, userID, bot, message) {
 
         response.on("end", () => {
         	if (rawData.indexOf("Cheater Mark") != -1) {
-				message.channel.send("This character has a cheater mark. It will not be added.")
-				return
+				message.channel.send("Warning: This character has a cheater mark. Use the !remove-user command if you don't want characters with cheater marks on your leaderboard.")
 			}
 
 			bot.data.characters[characterID] = {

@@ -20,11 +20,11 @@ module.exports = class extends Bot {
 	}
 
 	parseCharPage(html, characterID) {
-		// If the char page has a cheater mark, this character shouldn't be allowed to count
+		/* // If the char page has a cheater mark, this character shouldn't be allowed to count
 		if (html.indexOf("Cheater Mark") != -1) {
 			this.data.characters[characterID].wars = []
 			return
-		}
+		} */
 
 		// Time logging is to keep track of the character's WPM
 		let currentTime = new Date().getTime()
